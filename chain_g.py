@@ -3,8 +3,8 @@ import networkx as nx
 import matplotlib.pyplot as p
 import networkx.algorithms.dag as nxd
 
-with open("cities_s") as file:
-    city_list = file.read().split(" ")
+with open("cities") as file:
+    city_list = file.read().split(",")
 graph = nx.DiGraph()
 
 def get_last_char(city):
@@ -40,19 +40,32 @@ if __name__ == "__main__":
         graph_map = {i:0 for i in city_list}
         get_graph(i, graph_map)
 
-    # nx.draw(graph, with_labels=True, font_weight='light')
+    nx.draw(graph, with_labels=True, font_weight='light')
 
     # pos = nx.spectral_layout(graph)
     # nx.draw(graph, pos)
     # nx.draw_networkx_labels(graph, pos)
     # nx.draw_networkx_edge_labels(graph, pos)
-    # p.show()
 
-    p2 = nx.johnson(graph, weight='weight')
-    for i in city_list:
-        for j in city_list:
-            if nx.has_path(graph, i, j) and i != j:
-                print('{} - {} : {} value {}'.format(i, j, p2[i][j], len(p2[i][j])))
+    p.show()
+
+    # Longest
+    # value: 6
+    # ['Новосибирск', 'Уфа', 'Ульяновск']
+    # Красноярск # Краснодар # Ростов - на - Дону # Уфа # Архангельск # Кострома
+
+    for n, nbrs in graph.adj.items():
+        for nbr, eattr in nbrs.items():
+            wt = eattr['weight']
+            print('%s, %s, %.3f' % (n, nbr, wt))
+
+    print(graph['Новосибирск'])
+
+    # p2 = nx.johnson(graph, weight='weight')
+    # for i in city_list:
+    #     for j in city_list:
+    #         if nx.has_path(graph, i, j) and i != j:
+    #             print('{} - {} : {} value {}'.format(i, j, p2[i][j], len(p2[i][j])-1))
 
 
     # lngst = nxd.dag_longest_path_length(pos)
