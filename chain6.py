@@ -5,11 +5,13 @@ with open("cities_s") as file:
     city_list = file.read().split(" ")
 city_map = {}
 
+
 def get_last_char(city):
     index = -1
     while city[index] in 'ьый':
         index -= 1
     return city[index]
+
 
 def get_chain(first_char, array):
     chain = []
@@ -17,6 +19,7 @@ def get_chain(first_char, array):
         if index[0].lower() == first_char:
             chain.append(index)
     return chain
+
 
 def get_length(city):
     city_string = ""
@@ -39,6 +42,7 @@ def get_length(city):
             index += 1
     return city, city_count, city_string
 
+
 def get_key(value, array):
     names = []
     for index in array:
@@ -46,8 +50,8 @@ def get_key(value, array):
             names.append(index[0])
     return names
 
+
 if __name__ == "__main__":
-    clist = []
     time_now = time.time()
 
     p = Pool(4)

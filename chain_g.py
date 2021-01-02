@@ -7,11 +7,13 @@ with open("cities") as file:
     city_list = file.read().split(",")
 graph = nx.DiGraph()
 
+
 def get_last_char(city):
     index = -1
     while city[index] in 'ьый':
         index -= 1
     return city[index]
+
 
 def get_chain(first_char, array):
     chain = []
@@ -19,6 +21,7 @@ def get_chain(first_char, array):
         if index[0].lower() == first_char:
             chain.append(index)
     return chain
+
 
 def get_graph(city, array):
     graph.add_node(city)
@@ -33,11 +36,12 @@ def get_graph(city, array):
             graph.add_weighted_edges_from([(city, index, 1)])
             get_graph(index, array)
 
+
 if __name__ == "__main__":
     time_now = time.time()
 
     for i in city_list:
-        graph_map = {i:0 for i in city_list}
+        graph_map = {i: 0 for i in city_list}
         get_graph(i, graph_map)
 
     nx.draw(graph, with_labels=True, font_weight='light')
@@ -67,12 +71,10 @@ if __name__ == "__main__":
     #         if nx.has_path(graph, i, j) and i != j:
     #             print('{} - {} : {} value {}'.format(i, j, p2[i][j], len(p2[i][j])-1))
 
-
     # lngst = nxd.dag_longest_path_length(pos)
     # lng_path = nxd.dag_longest_path(pos)
     # print(lngst)
     # print(lng_path)
-
 
     shortest_paths = dict(nx.all_pairs_shortest_path(graph))
 

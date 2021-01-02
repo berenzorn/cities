@@ -8,6 +8,7 @@ with open("cities") as file:
 city_map = {}
 city_text = ""
 
+
 def get_length(city):
     global city_map
     city_string = ""
@@ -17,9 +18,7 @@ def get_length(city):
     last_char = city[-1]
     bad_char = -2
 
-    while last_char == 'ь' \
-            or last_char == 'ы' \
-            or last_char == 'й':
+    while last_char in 'ъьый':
         last_char = city[bad_char]
         bad_char -= 1
     i = 0
@@ -32,9 +31,7 @@ def get_length(city):
             city_count += 1
             last_char = choice[-1]
             bad_char = -2
-            while last_char == 'ь' \
-                    or last_char == 'ы' \
-                    or last_char == 'й':
+            while last_char in 'ъьый':
                 last_char = choice[bad_char]
                 bad_char -= 1
             array.remove(choice)
@@ -43,12 +40,14 @@ def get_length(city):
             i += 1
     return city, city_count, city_string
 
+
 def get_key(value, array):
     names = []
     for i in array:
         if i[1] == value:
             names.append(i[0])
     return names
+
 
 if __name__ == "__main__":
     # список кортежей из названия, длины цепи и цепи
